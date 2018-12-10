@@ -6,17 +6,15 @@ const AWS = require("aws-sdk");
 const SES = new AWS.SES();
 
 function sendMail(formData, cb) {
-  let emailParams = {
-    Source: "mailgun@awitherow.com",
-    ReplyToAddresses: [from],
-    Destination: {
-      ToAddresses: ["aloha@farmily.ventures"] // SES RECEIVING EMAIL
-    }
-  };
+  let emailParams = {};
 
   if (formData.zip) {
     emailParams = {
-      ...emailParams,
+      Source: "mailgun@awitherow.com",
+      ReplyToAddresses: [from],
+      Destination: {
+        ToAddresses: ["aloha@farmily.ventures"] // SES RECEIVING EMAIL
+      },
       Message: {
         Body: {
           Text: {
@@ -34,7 +32,11 @@ function sendMail(formData, cb) {
     const { contact, from, subject, body } = formData;
 
     emailParams = {
-      ...emailParams,
+      Source: "mailgun@awitherow.com",
+      ReplyToAddresses: [from],
+      Destination: {
+        ToAddresses: ["aloha@farmily.ventures"] // SES RECEIVING EMAIL
+      },
       Message: {
         Body: {
           Text: {
