@@ -1,0 +1,21 @@
+service: mailgun
+app: mailgun
+tenant: awitherow
+
+functions:
+  mail:
+    handler: handler.mail
+    events:
+      - http:
+          method: post
+          path: static-site-mailer
+          cors: true
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ses:SendEmail"
+      Resource: ["*"]

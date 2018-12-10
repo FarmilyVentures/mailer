@@ -1,0 +1,13 @@
+{
+  "name": "static-site-mailer",
+  "version": "1.0.0",
+  "description": "send mails from my static site",
+  "main": "index.js",
+  "author": "austin witherow",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "aws-sdk": "^2.295.0",
+    "serverless": "^1.30.1"
+  }
+}
