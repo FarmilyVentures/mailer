@@ -8,6 +8,18 @@ const SES = new AWS.SES();
 function sendMail(formData, cb) {
   let emailParams = {};
 
+  const {
+    from,
+    contact,
+    addrOne,
+    addrTwo,
+    city,
+    state,
+    zip,
+    phone,
+    body
+  } = formData;
+
   if (formData.zip) {
     emailParams = {
       Source: from,
@@ -19,12 +31,13 @@ function sendMail(formData, cb) {
         Body: {
           Text: {
             Charset: "UTF-8",
-            Data: `Contact: ${contact}\nEmail: ${from}\n\n ${addrOne}\n${addrTwo}\n${city}\n${state}\n${zip}\n${phone}\n\n ${body}`
+            Data: `Contact: ${contact}\nEmail: ${from}\n\n ${addrOne}\n${addrTwo}
+                  \n${city}\n${state}\n${zip}\n${phone}\n\n ${body}`
           }
         },
         Subject: {
           Charset: "UTF-8",
-          Data: `SALE | [${contact}] - ${subject}`
+          Data: `SALE | [${contact}]`
         }
       }
     };
