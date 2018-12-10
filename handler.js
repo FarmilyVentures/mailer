@@ -16,7 +16,7 @@ function sendMail(formData, cb) {
     city,
     state,
     zip,
-    phone,
+    tel,
     body
   } = formData;
 
