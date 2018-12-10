@@ -22,7 +22,7 @@ function sendMail(formData, cb) {
 
   if (formData.zip) {
     emailParams = {
-      Source: from,
+      Source: "aloha@farmily.ventures",
       ReplyToAddresses: [from],
       Destination: {
         ToAddresses: ["aloha@farmily.ventures"] // SES RECEIVING EMAIL
@@ -45,7 +45,7 @@ function sendMail(formData, cb) {
     const { contact, from, subject, body } = formData;
 
     emailParams = {
-      Source: from,
+      Source: "aloha@farmily.ventures",
       ReplyToAddresses: [from],
       Destination: {
         ToAddresses: ["aloha@farmily.ventures"] // SES RECEIVING EMAIL
