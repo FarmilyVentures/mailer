@@ -8,36 +8,35 @@ const SES = new AWS.SES();
 function sendMail(formData, cb) {
   let emailParams = {};
 
-  const {
-    from,
-    contact,
-    addrOne,
-    addrTwo,
-    city,
-    state,
-    zip,
-    tel,
-    body
-  } = formData;
+  if (formData["zip"]) {
+    const {
+      from,
+      contact,
+      addrOne,
+      addrTwo,
+      city,
+      state,
+      zip,
+      tel,
+      body
+    } = formData;
 
-  if (formData.zip) {
     emailParams = {
-      Source: "aloha@farmily.ventures",
+      Source: "mailgun@awitherow.com",
       ReplyToAddresses: [from],
       Destination: {
-        ToAddresses: ["aloha@farmily.ventures"] // SES RECEIVING EMAIL
+        ToAddresses: ["aloha@farmily.ventures"]
       },
       Message: {
         Body: {
           Text: {
             Charset: "UTF-8",
-            Data: `Contact: ${contact}\nEmail: ${from}\n\n ${addrOne}\n${addrTwo}
-                  \n${city}\n${state}\n${zip}\n${phone}\n\n ${body}`
+            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: \n\n ${addrOne}\n${addrTwo}\n${city}, ${state}, ${zip}\n\n Order: ${body}`
           }
         },
         Subject: {
           Charset: "UTF-8",
-          Data: `SALE | [${contact}]`
+          Data: `SALE | ${contact}`
         }
       }
     };
@@ -45,7 +44,7 @@ function sendMail(formData, cb) {
     const { contact, from, subject, body } = formData;
 
     emailParams = {
-      Source: "aloha@farmily.ventures",
+      Source: "mailgun@awitherow.com",
       ReplyToAddresses: [from],
       Destination: {
         ToAddresses: ["aloha@farmily.ventures"] // SES RECEIVING EMAIL
