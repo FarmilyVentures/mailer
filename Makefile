@@ -6,3 +6,6 @@ test_contact:
 
 test_order:
 	serverless invoke -f mail -l --path order.json  -v
+
+log:
+	serverless  logs --function mail -v
