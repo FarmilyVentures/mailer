@@ -31,7 +31,7 @@ function sendMail(formData, cb) {
         Body: {
           Text: {
             Charset: "UTF-8",
-            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: \n\n ${addrOne}\n${addrTwo}\n${city}, ${state}, ${zip}\n\n Order: ${body}`
+            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: ${addrOne}, ${addrTwo}, ${city}, ${state}, ${zip}\n\nOrder:\n${body}`
           }
         },
         Subject: {
