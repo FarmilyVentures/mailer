@@ -8,7 +8,7 @@ const SES = new AWS.SES();
 function sendMail(formData, cb) {
   let emailParams = {};
 
-  if (formData["zip"]) {
+  if (formData["itemsOrdered"]) {
     const {
       from,
       contact,
@@ -18,8 +18,13 @@ function sendMail(formData, cb) {
       state,
       zip,
       tel,
-      body
+      body,
+      itemsOrdered
     } = formData;
+
+    const orderList = itemsOrdered.map(
+      ({ name, value }) => `- ${value} ${name}\n`
+    );
 
     emailParams = {
       Source: "mailgun@awitherow.com",
@@ -31,7 +36,7 @@ function sendMail(formData, cb) {
         Body: {
           Text: {
             Charset: "UTF-8",
-            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: ${addrOne}, ${addrTwo}, ${city}, ${state}, ${zip}\n\nOrder:\n${body}`
+            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: ${addrOne}, ${addrTwo}, ${city}, ${state}, ${zip}\nOrder:\n${orderList}\nDetails:\n${body}`
           }
         },
         Subject: {
