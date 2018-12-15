@@ -19,12 +19,15 @@ function sendMail(formData, cb) {
       zip,
       tel,
       body,
-      itemsOrdered,
+      cart,
       frequency
     } = formData;
 
-    const orderList = itemsOrdered.map(
-      ({ name, value }) => `- ${value} ${name}\n`
+    const orderList = cart.map(
+      ({
+        name,
+        value
+      }) => `- ${value} ${name}\n`
     );
 
     var addrTwoExists = addrTwo ? `, ${addrTwo}` : "";
@@ -39,7 +42,7 @@ function sendMail(formData, cb) {
         Body: {
           Text: {
             Charset: "UTF-8",
-            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: ${addrOne}${addrTwoExists}, ${city}, ${state}, ${zip}\nOrder:\n${orderList}\nFrequency: ${frequency}\nDetails:\n${body}`
+            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: ${addrOne}${addrTwoExists}, ${city}, ${state}, ${zip}\nOrder:\n${orderList}\nFrequency: ${frequency}\nDetails: ${body}`
           }
         },
         Subject: {
@@ -49,7 +52,12 @@ function sendMail(formData, cb) {
       }
     };
   } else {
-    const { contact, from, subject, body } = formData;
+    const {
+      contact,
+      from,
+      subject,
+      body
+    } = formData;
 
     emailParams = {
       Source: "mailgun@awitherow.com",
@@ -78,7 +86,7 @@ function sendMail(formData, cb) {
 module.exports.mail = (event, context, callback) => {
   const formData = JSON.parse(event.body);
 
-  sendMail(formData, function(err, data) {
+  sendMail(formData, function (err, data) {
     const response = {
       statusCode: err ? 500 : 200,
       headers: {
