@@ -8,7 +8,7 @@ const SES = new AWS.SES();
 function sendMail(formData, cb) {
   let emailParams = {};
 
-  if (formData["itemsOrdered"]) {
+  if (formData["cart"]) {
     const {
       from,
       contact,
