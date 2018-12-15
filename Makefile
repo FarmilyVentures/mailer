@@ -1,5 +1,5 @@
 deploy:
-	serverless deploy -v
+	SLS_DEBUG=* serverless deploy -v
 
 test_contact:
 	serverless invoke -f mail -l --path contact.json  -v
