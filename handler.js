@@ -21,7 +21,8 @@ function sendMail(formData, cb) {
       body,
       cart,
       frequency,
-      payment
+      payment,
+      source
     } = formData;
 
     const orderList = cart.map(({
@@ -41,7 +42,7 @@ function sendMail(formData, cb) {
         Body: {
           Text: {
             Charset: 'UTF-8',
-            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: ${addrOne}${addrTwoExists}, ${city}, ${state}, ${zip}\nOrder:\n${orderList}\nFrequency: ${frequency}\nPayment Method: ${payment}\nDetails: ${body}`
+            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: ${addrOne}${addrTwoExists}, ${city}, ${state}, ${zip}\nOrder:\n${orderList}\nSource: ${source}\nFrequency: ${frequency}\nPayment Method: ${payment}\nDetails: ${body}`
           }
         },
         Subject: {
