@@ -47,7 +47,7 @@ function sendMail(formData, cb) {
         },
         Subject: {
           Charset: "UTF-8",
-          Data: `SALE | ${contact}`
+          Data: `Veggie Box Order | ${contact} - ${zip}`
         }
       }
     };
