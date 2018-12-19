@@ -1,14 +1,14 @@
 // handler.js
 
-"use strict";
+'use strict';
 
-const AWS = require("aws-sdk");
+const AWS = require('aws-sdk');
 const SES = new AWS.SES();
 
 function sendMail(formData, cb) {
   let emailParams = {};
 
-  if (formData["cart"]) {
+  if (formData['cart']) {
     const {
       from,
       contact,
@@ -20,33 +20,32 @@ function sendMail(formData, cb) {
       tel,
       body,
       cart,
-      frequency
+      frequency,
+      payment
     } = formData;
 
-    const orderList = cart.map(
-      ({
-        name,
-        value
-      }) => `- ${value} ${name}\n`
-    );
+    const orderList = cart.map(({
+      name,
+      value
+    }) => `- ${value} ${name}\n`);
 
-    var addrTwoExists = addrTwo ? `, ${addrTwo}` : "";
+    var addrTwoExists = addrTwo ? `, ${addrTwo}` : '';
 
     emailParams = {
-      Source: "mailgun@awitherow.com",
+      Source: 'mailgun@awitherow.com',
       ReplyToAddresses: [from],
       Destination: {
-        ToAddresses: ["aloha@farmily.ventures"]
+        ToAddresses: ['aloha@farmily.ventures']
       },
       Message: {
         Body: {
           Text: {
-            Charset: "UTF-8",
-            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: ${addrOne}${addrTwoExists}, ${city}, ${state}, ${zip}\nOrder:\n${orderList}\nFrequency: ${frequency}\nDetails: ${body}`
+            Charset: 'UTF-8',
+            Data: `Contact: ${contact}\nEmail: ${from}\nPhone: ${tel}\nAddress: ${addrOne}${addrTwoExists}, ${city}, ${state}, ${zip}\nOrder:\n${orderList}\nFrequency: ${frequency}\nPayment Method: ${payment}\nDetails: ${body}`
           }
         },
         Subject: {
-          Charset: "UTF-8",
+          Charset: 'UTF-8',
           Data: `Veggie Box Order | ${contact} - ${zip}`
         }
       }
@@ -60,20 +59,20 @@ function sendMail(formData, cb) {
     } = formData;
 
     emailParams = {
-      Source: "mailgun@awitherow.com",
+      Source: 'mailgun@awitherow.com',
       ReplyToAddresses: [from],
       Destination: {
-        ToAddresses: ["aloha@farmily.ventures"] // SES RECEIVING EMAIL
+        ToAddresses: ['aloha@farmily.ventures'] // SES RECEIVING EMAIL
       },
       Message: {
         Body: {
           Text: {
-            Charset: "UTF-8",
+            Charset: 'UTF-8',
             Data: `Contact: ${contact}\nEmail: ${from}\n\n ${body}`
           }
         },
         Subject: {
-          Charset: "UTF-8",
+          Charset: 'UTF-8',
           Data: `INQUIRY | [${contact}] - ${subject}`
         }
       }
@@ -90,8 +89,8 @@ module.exports.mail = (event, context, callback) => {
     const response = {
       statusCode: err ? 500 : 200,
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "https://farmily.ventures"
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://farmily.ventures'
       },
       body: JSON.stringify({
         message: err ? err.message : data
